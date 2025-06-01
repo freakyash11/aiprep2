@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
         Role: ${role}
         Level: ${level}
         Tech Stack: ${techStack}
-        Amount: ${amount}
+        Number of Questions: ${amount}
       `,
     });
 
@@ -42,12 +42,10 @@ export async function POST(request: NextRequest) {
 
     await db.collection("interviews").add(interview);
 
-    // const { text } = await generateText({
-    //   model: google("gemini-1.5-pro-latest"),
-    //   prompt: "Write a vegetarian lasagna recipe for 4 people.",
-    // });
-
-    return Response.json({ success: true }, { status: 200 });
+    return Response.json(
+      { success: true, questions: questions },
+      { status: 200 }
+    );
   } catch (e) {
     console.error(e);
     return Response.json(
